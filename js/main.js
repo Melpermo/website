@@ -121,8 +121,8 @@ function createParticle(container, x, y) {
   const particle = document.createElement('div');
   particle.className = 'mouse-particle';
 
-  // Randomize sizing between 1.5px and 3.5px
-  const size = Math.random() * 2 + 1.5;
+  // Randomize sizing between 1px and 3px (finer, more delicate dust)
+  const size = Math.random() * 2 + 1;
   particle.style.width = `${size}px`;
   particle.style.height = `${size}px`;
 
@@ -130,17 +130,17 @@ function createParticle(container, x, y) {
   particle.style.left = `${x}px`;
   particle.style.top = `${y}px`;
 
-  // Randomize drift offset (horizontal and vertical)
-  const dx = (Math.random() - 0.5) * 40; // drift left/right up to 20px
-  const dy = Math.random() * 40 + 20;    // drift upwards 20px to 60px
+  // Randomize drift offset (simulating suspended dust under gentle multi-directional air currents)
+  const dx = (Math.random() - 0.5) * 60; // sway left/right up to 30px
+  const dy = (Math.random() - 0.5) * 60; // sway up/down up to 30px
   
   particle.style.setProperty('--dx', `${dx}px`);
   particle.style.setProperty('--dy', `${dy}px`);
 
   container.appendChild(particle);
 
-  // Clean up element after animation completes to avoid memory leaks
+  // Clean up element after animation completes to avoid memory leaks (matches 3.2s CSS transition)
   setTimeout(() => {
     particle.remove();
-  }, 1600);
+  }, 3200);
 }

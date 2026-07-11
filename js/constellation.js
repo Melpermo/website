@@ -77,6 +77,15 @@ export function initConstellation() {
     nodesContainerEl.appendChild(btn);
   });
 
+  // Setup close button event
+  const closeBtnEl = document.getElementById('close-info-btn');
+  if (closeBtnEl) {
+    closeBtnEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeInfoPanel();
+    });
+  }
+
   // Clicking on background space closes the active info panel
   containerEl.addEventListener('click', () => {
     closeInfoPanel();
@@ -122,8 +131,8 @@ export function renderConstellation() {
   const cx = width / 2;
   const cy = height / 2;
 
-  // Adaptive radius: 35% of the minimum screen dimension
-  const radius = Math.min(width, height) * 0.35;
+  // Adaptive radius: 28% of the minimum screen dimension (prevents collision with card)
+  const radius = Math.min(width, height) * 0.28;
 
   // 1. Position all HTML nodes
   Object.entries(nodes).forEach(([id, node]) => {
@@ -141,9 +150,7 @@ export function renderConstellation() {
     btn.style.left = `${x}px`;
     btn.style.top = `${y}px`;
 
-    // Set visibility states
-    btn.style.opacity = isDiscovered ? '1' : '0';
-    btn.style.pointerEvents = isDiscovered ? 'all' : 'none';
+    // Set accessibility states (visibility and interaction are managed by CSS)
     btn.setAttribute('tabindex', isDiscovered ? '0' : '-1');
 
     // Toggle discovery and portal classes
